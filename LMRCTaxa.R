@@ -11,7 +11,7 @@ Markers = c()
 for(i in x:length(data_marker)){
   Coef[[i]] = tidy(anova(lmer(continous_dep[[i]] ~ fixed_variable + (1 | Random_variable), 
                               data = data_marker),
-                         lmer(continous_dep[[i]] ~  (1 | Comp.groups), 
+                         lmer(continous_dep[[i]] ~  (1 | Random_variable), 
                               data = data_marker)
                          ,test = "Chisq"))[2,]
   Coef2[[i]] =  tidy(lmer(continous_dep[[i]] ~ fixed_variable+ (1 | Random_variable), 
