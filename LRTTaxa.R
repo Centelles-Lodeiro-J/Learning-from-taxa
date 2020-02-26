@@ -1,18 +1,18 @@
 Coef = c()
 Coef2 = c()
 Genera = c()
-for(i in x:length(y)){
-  Coef[[i]] = tidy(anova(glmer(Outcome ~ Treatment +  y[[i]] + (1 | Year)+ (1 | MouseID), 
-                               data = y, family = binomial(link = "logit"), 
+for(i in x:length(taxa_df)){
+  Coef[[i]] = tidy(anova(glmer(Binary_dep ~ taxa_df[[i]] + (1 | Random_variable), 
+                               data = taxa_df, family = binomial(link = "logit"), 
                                control = glmerControl(optimizer = "bobyqa")), 
-                         glmer(Outcome ~ Treatment + (1 | Year) + (1 | MouseID), 
-                               data = y, family = binomial(link = "logit"), 
+                         glmer(Binary_dep ~  (1 | Random_variable), 
+                               data = taxa_df, family = binomial(link = "logit"), 
                                control = glmerControl(optimizer = "bobyqa"))
                          ,test = "Chisq"))[2,]
-  Coef2[[i]] =  tidy(glmer(Outcome ~  Treatment + y[[i]] + (1 | Year)+ (1 | MouseID), 
-                           data = y, family = binomial(link = "logit"), 
+  Coef2[[i]] =  tidy(glmer(Binary_dep ~  taxa_df[[i] + (1 | Random_variable), 
+                           data = taxa_df, family = binomial(link = "logit"), 
                            control = glmerControl(optimizer = "bobyqa")))
-  Coef2[[i]]$term[6] =  names(y[i]) # Get taxa names
+  Coef2[[i]]$term[6] =  names(taxa_df[i]) # Get taxa names
   Genera[[i]]= Coef2[[i]][6,]
 }
 #Check
